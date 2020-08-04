@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RsListApplicationTests {
+public class RsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -24,7 +24,7 @@ public class RsListApplicationTests {
     @Test
     void shouldGetRsList() throws Exception{
         mockMvc.perform(get("/rs/ls"))
-                .andExpect(content().string("[第一条事件， 第二条事件， 第三条事件]"))
+                .andExpect(content().string("[第一条事件, 第二条事件， 第三条事件]"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

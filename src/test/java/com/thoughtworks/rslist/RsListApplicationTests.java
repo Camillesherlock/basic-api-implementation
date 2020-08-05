@@ -35,13 +35,13 @@ class RsListApplicationTests {
         mockMvc.perform(get("/rs/list"))
                 .andExpect(jsonPath("$[0].eventName").value("第一条事件"))
                 .andExpect(jsonPath("$[0].keyWord").value("无分类"))
-                .andExpect(jsonPath("$[0]", hasKey("users")))
+                .andExpect(jsonPath("$[0]", not(hasKey("users"))))
                 .andExpect(jsonPath("$[1].keyWord").value("无分类"))
                 .andExpect(jsonPath("$[1].eventName").value("第二条事件"))
-                .andExpect(jsonPath("$[1]", hasKey("users")))
+                .andExpect(jsonPath("$[1]", not(hasKey("users"))))
                 .andExpect(jsonPath("$[2].keyWord").value("无分类"))
                 .andExpect(jsonPath("$[2].eventName").value("第三条事件"))
-                .andExpect(jsonPath("$[2]", hasKey("users")))
+                .andExpect(jsonPath("$[2]", not(hasKey("users"))))
                 .andExpect(status().isOk());
 
     }
@@ -55,16 +55,16 @@ class RsListApplicationTests {
         mockMvc.perform(get("/rs/list"))
                 .andExpect(jsonPath("$[0].eventName").value("第一条事件"))
                 .andExpect(jsonPath("$[0].keyWord").value("无分类"))
-                .andExpect(jsonPath("$[0]", hasKey("users")))
+                .andExpect(jsonPath("$[0]", not(hasKey("users"))))
                 .andExpect(jsonPath("$[1].keyWord").value("无分类"))
                 .andExpect(jsonPath("$[1].eventName").value("第二条事件"))
-                .andExpect(jsonPath("$[1]", hasKey("users")))
+                .andExpect(jsonPath("$[1]", not(hasKey("users"))))
                 .andExpect(jsonPath("$[2].keyWord").value("无分类"))
                 .andExpect(jsonPath("$[2].eventName").value("第三条事件"))
-                .andExpect(jsonPath("$[2]", hasKey("users")))
+                .andExpect(jsonPath("$[2]", not(hasKey("users"))))
                 .andExpect(jsonPath("$[3].keyWord").value("无分类"))
                 .andExpect(jsonPath("$[3].eventName").value("第四条事件"))
-                .andExpect(jsonPath("$[3]", hasKey("users")))
+                .andExpect(jsonPath("$[3]", not(hasKey("users"))))
                 .andExpect(status().isOk());
 
     }

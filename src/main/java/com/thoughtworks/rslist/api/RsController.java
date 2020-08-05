@@ -5,6 +5,7 @@ import domain.RsEvent;
 import domain.Users;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,9 +34,19 @@ public class RsController {
 
   }
   @PostMapping("/rs/event")
-  @ResponseStatus(HttpStatus.CREATED)
-  public void getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{
+  public ResponseEntity getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{
     rsList.add(rsEvent);
+    return ResponseEntity.created(null).build();
+  }
+
+  @PutMapping("rs/list/{index}")
+  public  ResponseEntity modifyOneRsEvent(@PathVariable int index, @RequestBody RsEvent rsEvent) {
+    rsList.set(index - 1, rsEvent);
+    return ResponseEntity.created(null).build();
+  }
+  @DeleteMapping("rs/list/{index}")
+  public  ResponseEntity deleteOneRsEvent(@PathVariable int index) {
+    return ResponseEntity.created(null).build();
   }
 
 

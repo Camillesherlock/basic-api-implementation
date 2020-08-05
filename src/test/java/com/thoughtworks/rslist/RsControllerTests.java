@@ -17,14 +17,12 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import javax.print.attribute.standard.Media;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-//import static org.hamcrest.collection.IsMapContaining.hasKey;
-//import static org.hamcrest.Matchers.hasKey;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-//import static java.util.Collections.get;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -53,7 +51,7 @@ public class RsControllerTests {
    void shouldAddOneRsEvent() throws Exception{
         Users user4 = new Users("test1", 18, "male", "test1@1.com", "10123456789");
         String requestJson = "{\"eventName\":\"第四条事件\", \"keyWord\":\"无分类\", \"user\":{\"name\":\"test4\",\"age\":\"20\",\"gender\":\"male\",\"emil\":\"test4@1.com\",\"phone\":\"1324567890\"}}";
-        mockMvc.perform(post("/re/event").content(requestJson).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/rs/event").content(requestJson).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
         mockMvc.perform(get("/rs/list"))
                     .andExpect(jsonPath("$[0].eventName").value("第一条事件"))

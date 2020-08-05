@@ -1,12 +1,13 @@
 package com.thoughtworks.rslist.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import domain.RsEvent;
 import domain.Users;
 import org.apache.catalina.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,12 @@ public class RsController {
     return rsList;
 
   }
+  @PostMapping("/rs/event")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{
+    rsList.add(rsEvent);
+  }
+
 
 }
 

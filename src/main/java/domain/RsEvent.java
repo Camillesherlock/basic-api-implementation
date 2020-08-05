@@ -1,12 +1,11 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RsEvent<eventName> {
     private String eventName;
     private String keyWord;
-
-    @JsonProperty
     private Users users;
 
     public void setEventName(String eventName) {
@@ -29,6 +28,7 @@ public class RsEvent<eventName> {
     public String getKeyWord() {
         return keyWord;
     }
+    @JsonIgnore
     public Users getUsers() {
         return users;
     }

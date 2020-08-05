@@ -38,6 +38,10 @@ public class RsController {
     rsList.add(rsEvent);
     return ResponseEntity.created(null).build();
   }
+  @GetMapping("/rs/list/{index}")
+  public ResponseEntity <RsEvent> getOneRsEvent(@PathVariable int index){
+    return ResponseEntity.ok(rsList.get(index - 1));
+  }
 
   @PutMapping("rs/list/{index}")
   public  ResponseEntity modifyOneRsEvent(@PathVariable int index, @RequestBody RsEvent rsEvent) {

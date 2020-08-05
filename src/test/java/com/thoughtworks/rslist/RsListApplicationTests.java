@@ -69,10 +69,22 @@ class RsListApplicationTests {
 
     }
 
-
-
     @Test
-    void contextLoads() {
+    void shouldGetOneEvent() throws Exception {
+        mockMvc.perform(get("/rs/list/1"))
+                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventName").value("第一条事件"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rs/list/2"))
+                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventName").value("第二条事件"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rs/list/3"))
+                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventName").value("第三条事件"))
+                .andExpect(status().isOk());
     }
+
+
 
 }

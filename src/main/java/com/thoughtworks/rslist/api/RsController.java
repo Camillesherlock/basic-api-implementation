@@ -29,9 +29,12 @@ public class RsController {
   }
 
   @GetMapping("/rs/list")
-  public List<RsEvent> getList() {
-    return rsList;
-
+  public List<RsEvent> getList(@RequestParam(required = false) Integer start,
+                               @RequestParam(required = false) Integer end){
+    if (start == null && end == null){
+      return rsList;
+    }
+    return rsList.subList(start - 1,end);
   }
   @PostMapping("/rs/event")
   public ResponseEntity getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{

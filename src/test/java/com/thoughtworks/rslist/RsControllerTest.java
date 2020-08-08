@@ -1,5 +1,6 @@
 package com.thoughtworks.rslist;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.thoughtworks.rslist.domain.RsEvent;
 import com.thoughtworks.rslist.api.RsController;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ public class RsControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
 
 
     @Test
@@ -46,5 +48,15 @@ public class RsControllerTest {
 
 }
 @Test
-    void shouldAddRsEvent
+    void shouldAddRsEvent() throws Exception {
+        RsEvent rsEvent = new RsEvent("第四条事件","无分类");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(rsEvent);
+    mockMvc.perform(put("/rs/list").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    mockMvc.perform(get("/rs/list/4"))
+            .andExpect(jsonPath("$.eventName").value("第四条事件"))
+            .andExpect(status().isOk());
+
+}
+
 }

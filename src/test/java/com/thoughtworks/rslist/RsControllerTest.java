@@ -68,4 +68,12 @@ public class RsControllerTest {
             .andExpect(jsonPath("$.eventName").value("第四条事件"))
             .andExpect(status().isOk());
     }
+
+    @Test
+    void shouldDeleteOneRsEvent() throws Exception {
+        mockMvc.perform(delete("/rs/list/1")).andExpect(status().isOk());
+        mockMvc.perform(get("/rs/list/1"))
+                .andExpect(jsonPath("$.eventName").value("第二条事件"))
+                .andExpect(status().isOk());
+    }
 }

@@ -37,12 +37,14 @@ public class RsControllerTest {
 
     }
 @Test
-    void shouldGetRsListBetween(){
-        mockMvc.perform(get("/re/list?start=1&end=2"))
+    void shouldGetRsListBetween() throws Exception {
+        mockMvc.perform(get("/rs/list?start=1&end=2"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].eventName").value("第一条事件"))
                 .andExpect(jsonPath("$[1].eventName").value("第二条事件"))
                 .andExpect(status().isOk());
 
 }
+@Test
+    void shouldAddRsEvent
 }

@@ -58,5 +58,14 @@ public class RsControllerTest {
             .andExpect(status().isOk());
 
 }
-
+@Test
+    void shouldModifyOneRsEvent() throws Exception {
+    RsEvent rsEvent = new RsEvent("第四条事件","无分类");
+    ObjectMapper objectMapper = new ObjectMapper();
+    String body = objectMapper.writeValueAsString(rsEvent);
+    mockMvc.perform(put("/rs/list/1").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    mockMvc.perform(get("/rs/list/1"))
+            .andExpect(jsonPath("$.eventName").value("第四条事件"))
+            .andExpect(status().isOk());
+    }
 }

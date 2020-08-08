@@ -13,23 +13,5 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class RsListApplicationTests {
 
-    @Autowired
-    MockMvc mockMvc;
-
-    @Autowired
-    RsController rsController;
-
-    @Test
-    void shouldGetOneRsEvent() throws Exception {
-     mockMvc.perform(get("/rs/1"))
-             .andExpect(content().string("第一条事件"))
-             .andExpect(status().isOk());
-     mockMvc.perform(get("/rs/2"))
-                .andExpect(content().string("第二条事件"))
-                .andExpect(status().isOk());
-     mockMvc.perform(get("/rs/3"))
-                .andExpect(content().string("第三条事件"))
-                .andExpect(status().isOk());
-    }
 
 }

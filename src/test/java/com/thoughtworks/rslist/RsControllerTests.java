@@ -12,24 +12,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
-//import static sun.plugin.util.ProgressMonitor.get;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RsControllerTests {
-
     @Autowired
-    private MockMvc mockMvc;
-
+    MockMvc mockMvc;
 
     @Test
-    void shouldGetRsList() throws Exception{
-        mockMvc.perform(get("/rs/list"))
-                .andExpect(content().string("[第一条事件, 第二条事件, 第三条事件]"))
+    void shouldGetRsList() throws Exception {
+        mockMvc.perform(get("/re/list"))
+               .andExpect(content().string("[第一条事件， 第二条事件， 第三条事件]"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
+
 
 
 }

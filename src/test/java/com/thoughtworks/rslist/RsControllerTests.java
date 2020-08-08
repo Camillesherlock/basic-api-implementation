@@ -20,8 +20,8 @@ public class RsControllerTests {
 
     @Test
     void shouldGetRsList() throws Exception {
-        mockMvc.perform(get("/re/list"))
-               .andExpect(content().string("[第一条事件， 第二条事件， 第三条事件]"))
+        mockMvc.perform(get("/rs/list"))
+               .andExpect(content().string("[第一条事件, 第二条事件, 第三条事件]"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

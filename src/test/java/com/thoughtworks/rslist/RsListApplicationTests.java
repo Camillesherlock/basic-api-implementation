@@ -13,21 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //import static sun.plugin.util.ProgressMonitor.get;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+
 public class RsListApplicationTests {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-
-    @Test
-    void shouldGetRsList() throws Exception{
-        mockMvc.perform(get("/rs/ls"))
-                .andExpect(content().string("[第一条事件， 第二条事件， 第三条事件]"))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
 
 
 }

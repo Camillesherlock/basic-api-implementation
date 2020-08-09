@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.net.URI;
 
 @RestController
 public class RsController {
@@ -34,8 +35,21 @@ public class RsController {
 
   }
   @PostMapping("/rs/event")
-  public ResponseEntity getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{
-    return ResponseEntity.ok(rsList.add(rsEvent));
+  public ResponseEntity addOneRsEvent(@RequestBody @Valid RsEvent rsEvent) {
+
+    for (Users u : UserController.usersList) {
+      if (u.getName().equals(rsEvent.getUsers().getName())) {
+        rsList.add(rsEvent);
+        String headers = String.valueOf(rsList.indexOf(rsEvent));
+        return ResponseEntity.created(URI.create(headers)).build();
+      }
+    }
+    rsList.add(rsEvent);
+    UserController.usersList.add(rsEvent.getUsers());
+    String headers = String.valueOf(rsList.indexOf(rsEvent));
+    return ResponseEntity.created(URI.create(headers)).build();
+
+
   }
   @GetMapping("/rs/list/{index}")
   public ResponseEntity <RsEvent> getOneRsEvent(@PathVariable int index){

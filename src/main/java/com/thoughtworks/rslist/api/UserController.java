@@ -1,15 +1,20 @@
 package com.thoughtworks.rslist.api;
 
 import domain.Users;
+import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.thoughtworks.rslist.utils.ListOperation;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -22,14 +27,21 @@ public class UserController {
 
     }
 
-    @PostMapping("users")
-    public static ResponseEntity register(@RequestBody @Valid Users user ){
-        for(Users u : usersList){
-            if(u.getName()==user.getName())
+
+    @PostMapping("/users")
+    public static ResponseEntity register(@RequestBody @Valid Users user){
+        for (Users u : usersList) {
+            if (u.getName() == user.getName())
                 return ResponseEntity.created(null).build();
         }
         usersList.add(user);
         String headers = String.valueOf(usersList.indexOf(user));
         return ResponseEntity.created(URI.create(headers)).build();
     }
+    @GetMapping("/users")
+    public static ResponseEntity<List> addUsers(@RequestParam( required = false) Integer formIndex,
+                                                @RequestParam ( required = false)Integer toIndex){
+        return ListOperation.getListByIndex(formIndex,toIndex,usersList);
+    }
+
 }

@@ -1,19 +1,20 @@
 package com.thoughtworks.rslist.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.thoughtworks.rslist.utils.ListOperation;
 import domain.RsEvent;
 import domain.Users;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.thoughtworks.rslist.exception.InvalidIndexException;
+import com.thoughtworks.rslist.exception.CommonError;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.net.URI;
-
 @RestController
 public class RsController {
   private List<RsEvent> rsList = initRsEvent();
@@ -30,8 +31,14 @@ public class RsController {
   }
 
   @GetMapping("/rs/list")
-  public List<RsEvent> getList() {
-    return rsList;
+  public ResponseEntity<List<RsEvent>> getList(@RequestParam(required = false) Integer start,
+                                               @RequestParam(required = false) Integer end) throws InvalidIndexException {
+    if (ListOperation.isLegalIndex(start,end,rsList))
+      return ResponseEntity.ok(rsList.subList(start - 1, end));
+    else if (start == null && end == null){
+      return ResponseEntity.ok(rsList);
+    }
+    throw new InvalidIndexException("invalid request param");
 
   }
   @PostMapping("/rs/event")
@@ -52,7 +59,11 @@ public class RsController {
 
   }
   @GetMapping("/rs/list/{index}")
-  public ResponseEntity <RsEvent> getOneRsEvent(@PathVariable int index){
+  public ResponseEntity getOneRsEvent(@PathVariable int index) throws InvalidIndexException {
+    if (index  > rsList.size()){
+      //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"invalid index\"}");
+      throw new InvalidIndexException("invalid index");
+    }
     return ResponseEntity.ok(rsList.get(index - 1));
   }
 

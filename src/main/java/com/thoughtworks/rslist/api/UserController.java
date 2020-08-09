@@ -40,7 +40,7 @@ public class UserController {
     }
     @GetMapping("/users")
     public static ResponseEntity<List> addUsers(@RequestParam( required = false) Integer formIndex,
-                                                @RequestParam ( required = false)Integer toIndex){
+                                                @RequestParam ( required = false) Integer toIndex){
         return ListOperation.getListByIndex(formIndex,toIndex,usersList);
     }
 

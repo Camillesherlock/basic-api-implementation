@@ -1,5 +1,6 @@
 package com.thoughtworks.rslist;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -93,6 +94,16 @@ class RsListApplicationTests {
                 .andExpect(jsonPath("$.eventName").value("第二条事件"))
                 .andExpect(status().isOk());
  }
-
+@Test
+    void shouldModifyOneRsEvent() throws Exception {
+        Users user4 = new Users("test4",35,"female","test4@4.com","13246578932");
+        RsEvent rsEvent = new RsEvent("第四条事件","财经",user4);
+       ObjectMapper objectMapper = new ObjectMapper();
+       String body = objectMapper.writeValueAsString(rsEvent);
+       mockMvc.perform(put("/rs/list/1").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+       mockMvc.perform(get("/rs/list/1"))
+               .andExpect(jsonPath("$.eventName").value("第四条事件"))
+               .andExpect(status().isOk());
+}
 
 }

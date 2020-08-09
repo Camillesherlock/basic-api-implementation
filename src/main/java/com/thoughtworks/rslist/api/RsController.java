@@ -35,8 +35,7 @@ public class RsController {
   }
   @PostMapping("/rs/event")
   public ResponseEntity getOneRsEvent(@RequestBody @Valid RsEvent rsEvent) throws JsonProcessingException{
-    rsList.add(rsEvent);
-    return ResponseEntity.created(null).build();
+    return ResponseEntity.ok(rsList.add(rsEvent));
   }
   @GetMapping("/rs/list/{index}")
   public ResponseEntity <RsEvent> getOneRsEvent(@PathVariable int index){
@@ -45,8 +44,7 @@ public class RsController {
 
   @PutMapping("rs/list/{index}")
   public  ResponseEntity modifyOneRsEvent(@PathVariable int index, @RequestBody RsEvent rsEvent) {
-    rsList.set(index - 1, rsEvent);
-    return ResponseEntity.created(null).build();
+    return ResponseEntity.ok(rsList.set(index - 1, rsEvent));
   }
   @DeleteMapping("rs/list/{index}")
   public  ResponseEntity deleteOneRsEvent(@PathVariable int index) {

@@ -50,7 +50,8 @@ public class RsController {
   }
   @DeleteMapping("rs/list/{index}")
   public  ResponseEntity deleteOneRsEvent(@PathVariable int index) {
-    return ResponseEntity.created(null).build();
+      rsList.remove(index-1);
+    return ResponseEntity.ok(rsList.remove(index));
   }
 
 

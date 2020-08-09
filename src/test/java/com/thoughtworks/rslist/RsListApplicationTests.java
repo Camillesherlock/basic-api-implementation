@@ -82,9 +82,17 @@ class RsListApplicationTests {
         mockMvc.perform(get("/rs/list/3"))
                 //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.eventName").value("第三条事件"))
+                .andExpect(jsonPath("$",not(hasKey("users"))))
                 .andExpect(status().isOk());
     }
-
+ @Test
+    void shouldDeleteOneRsEvent() throws Exception {
+        mockMvc.perform(delete("/rs/list/1"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rs/list/1"))
+                .andExpect(jsonPath("$.eventName").value("第二条事件"))
+                .andExpect(status().isOk());
+ }
 
 
 }
